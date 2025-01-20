@@ -1,0 +1,239 @@
+It looks like you provided an incomplete code snippet with a couple of issues. I'll help you fix them and provide a working *Nike Shoes Store website* example with the necessary corrections.
+
+Issues:
+1. *Unclosed `<footer>` tag*: You placed a `<footer>` element in the HTML, but it's missing its opening `<footer>` tag. It should be fixed.
+2. *Missing cart functionality in JavaScript*: The alert and checkout logic are present in your CSS block, but not inside the correct JavaScript file, and it’s incomplete.
+3. *Incorrect JavaScript syntax*: The string interpolation (`${}`) in the `alert` inside the JavaScript section isn't formatted correctly.
+
+Let's correct everything and provide a full, working example of the HTML, CSS, and JavaScript code.
+
+---
+
+Complete Code:
+
+*index.html*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Shoes Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>Nike Shoes Store</h1>
+            <div class="cart">
+                <span id="cart-count">0</span> Items in Cart
+            </div>
+        </div>
+    </header>
+
+    <main>
+<div class="shoe" id="shoe1">
+                <img src="https://via.placeholder.com/200" alt="Nike Air Zoom">
+                <h2>Nike Air Zoom</h2>
+                <p class="price">120.00</p>
+                <button class="add-to-cart" data-name="Nike Air Zoom" data-price="120">Add to Cart</button>
+            </div>
+            <div class="shoe" id="shoe2">
+                <img src="https://via.placeholder.com/200" alt="Nike Air Max">
+                <h2>Nike Air Max</h2>
+                <p class="price">150.00</p>
+                <button class="add-to-cart" data-name="Nike Air Max" data-price="150">Add to Cart</button>
+            </div>
+            <div class="shoe" id="shoe3">
+                <img src="https://via.placeholder.com/200" alt="Nike React">
+                <h2>Nike React</h2>
+                <p class="price">130.00</p>
+                <button class="add-to-cart" data-name="Nike React" data-price="130">Add to Cart</button>
+            </div>
+        </section>
+
+        <section class="cart-section">
+            <h3>Your Cart</h3>
+            <ul id="cart-list"></ul>
+            <button id="checkout-button" onclick="checkout()">Checkout</button>
+        </section>
+    </main>
+<script src="scripts.js"></script>
+</body>
+</html>
+```
+
+*styles.css*
+
+```css
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #111;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.cart {
+    float: right;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.shoe-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shoe {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shoe img {
+    max-width: 100%;
+    height: auto;
+}
+
+.shoe h2 {
+    margin: 10px 0;
+}
+
+.price {
+    color: green;
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.add-to-cart:hover {
+    background-color: #333;
+}
+
+.cart-section {
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-section h3 {
+    <footer>
+        <p>© 2025 Nike Shoes Store</p>
+    </footer>
+margin-top: 0;
+}
+
+#cart-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+footer {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+```
+
+*scripts.js*
+
+```javascript
+let cart = [];
+const cartCountElement = document.getElementById('cart-count');
+const cartListElement = document.getElementById('cart-list');
+
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+        addToCart(name, price);
+    });
+});
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartDisplay();
+}
+
+function updateCartDisplay() {
+    cartCountElement.textContent = cart.length;
+    cartListElement.innerHTML = '';
+
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `item.name -${item.price.toFixed(2)}`;
+        cartListElement.appendChild(li);
+    });
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+    alert(`Checkout successful! Total amount:${totalAmount.toFixed(2)}`);
+    cart = [];
+    updateCartDisplay();
+}
+```
+
+How It Works:
+
+1. *HTML*:
+   - The page includes a header with the store name and a cart counter.
+   - A section displays three Nike shoes, each with an "Add to Cart" button.
+   - A cart section below shows the items added to the cart and allows the user to "checkout."
+
+2. *CSS*:
+   - Basic styling is applied to make the layout clean and user-friendly. The header, cart, and products have their own styling to differentiate them.
+   - The buttons and other clickable elements have hover effects to enhance user interaction.
+
+3. *JavaScript*:
+   - When a user clicks the "Add to Cart" button, the shoe is added to an array (`cart`).
+   - The cart count in the header updates each time an item is added.
+   - The checkout button shows the total amount of items in the cart and clears the cart after checkout.
+
+Testing the Website:
+To test this website:
+1. Save the HTML code in an `index.html` file.
+2. Save the CSS in a `styles.css` file and link it to the HTML file.
+3. Save the JavaScript in a `scripts.js` file and link it to the HTML file.
